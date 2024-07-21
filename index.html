@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blahaj Go Spinny</title>
+
+  <!-- Favicon and Apple iOS icon -->
+  <link rel="icon" href="favicon.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="favicon.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="favicon.png" sizes="180x180">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #ceb5c5;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+        Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+    }
+
+    header {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    p {
+      text-align: center;
+      font-size: 18px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    @media (min-width: 601px) {
+      img {
+        max-width: 600px;
+      }
+    }
+
+    /* Hide the audio container by default */
+    .audio-container {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <img src="yh1tiyhexq681.gif" alt="Infected Systems">
+  <header>Test Domain Please Ignore</header>
+  <br>
+  
+  <!-- Button to reject cookies and start audio playback -->
+  <button onclick="startAudio()">Reject Cookies</button>
+
+  <!-- Container for the audio player -->
+  <div class="audio-container">
+    <audio id="myAudio" controls loop playbackRate="1.25">
+      <source src="Country_Roads.mp3" type="audio/mp3">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <script>
+    function startAudio() {
+      // Get the audio element by ID
+      var audio = document.getElementById("myAudio");
+
+      // Hide the audio container
+      var audioContainer = document.querySelector(".audio-container");
+      audioContainer.style.display = "none";
+
+      // Start playing the audio
+      audio.play();
+    }
+  </script>
+</body>
+</html>
