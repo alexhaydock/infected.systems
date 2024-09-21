@@ -6,7 +6,7 @@ autoinstall:
 
   locale: en_GB.UTF-8
   keyboard:
-    layout: gb
+    layout: us  # Typically would use 'gb' but my T480 has a US keyboard
   timezone: Europe/London
 
   storage:
