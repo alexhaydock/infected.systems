@@ -1,0 +1,52 @@
+autoinstall:
+  version: 1
+
+  source:
+    id: ubuntu-desktop-minimal
+
+  locale: en_GB.UTF-8
+  keyboard:
+    layout: gb
+    variant: gb
+  timezone: Europe/London
+
+  storage:
+    layout:
+      name: zfs
+      password: password  # LUKS2 password, will need rotating post-install
+
+  identity:
+    hostname: t480
+    username: user
+    password: "$6$AEzzJzqYSLoOU..B$9eBMwzAStDHZaHlNPrjJ12zq2WkHVgpmTsGbuxEdQzCOKKTN1wXKzrBLjazOavFb6u19jWALrCyEqBW9rzTNA0"  # 'password'
+
+  ssh:
+    install-server: true
+    allow-pw: false
+    authorized-keys: []
+
+  packages:
+    - distrobox               # universe
+    - flatpak                 # universe
+    - podman                  # universe
+    - ufw                     # main
+    - wireshark               # universe
+
+  snaps:
+    - name: code
+      classic: true
+
+  late-commands:
+    # Clean up apt with an autoremove and clean
+    - curtin in-target --target=/target -- apt-get --purge -y --quiet=2 autoremove
+    - curtin in-target --target=/target -- apt-get clean
+    # Enable Flathub
+    - curtin in-target --target=/target -- flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+    # Configure UFW on the target system with a basic default of only ingress SSH being allowed
+    - curtin in-target --target=/target -- /usr/sbin/ufw --force reset
+    # We need to run the following commands inside chroot instead of curtin because they depend on
+    # inserting the ip6_tables kernel module in order to successfully run and that module doesn't
+    # seem to actually ship on the ISO inside the installer environment. So we chroot into our
+    # installed system where we definitely have the module available in order to run these commands.
+    - chroot /target /usr/sbin/ufw limit ssh
+    - chroot /target /usr/sbin/ufw enable
