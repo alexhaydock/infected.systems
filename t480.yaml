@@ -45,7 +45,7 @@ autoinstall:
     # Remove desktop update notifier application
     - curtin in-target --target=/target -- apt-get purge -y --quiet=2 update-notifier update-notifier-common
     # Clean up apt with an autoremove and clean
-    - curtin in-target --target=/target -- apt-get purge -y --quiet=2 autoremove
+    - curtin in-target --target=/target -- apt-get autoremove -y --quiet=2 --purge
     - curtin in-target --target=/target -- apt-get clean
     # Enable Flathub
     - curtin in-target --target=/target -- flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
