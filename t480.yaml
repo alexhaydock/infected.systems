@@ -14,6 +14,8 @@ autoinstall:
     layout:
       name: zfs
       password: password  # LUKS2 password, will need rotating post-install
+      match:
+        path: /dev/nvme0n1
 
   identity:
     hostname: t480
@@ -33,6 +35,7 @@ autoinstall:
     - wireshark               # universe
 
   snaps:
+    - name: bitwarden
     - name: code
       classic: true
 
