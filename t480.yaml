@@ -43,14 +43,14 @@ autoinstall:
     # Configure unattended-upgrades to upgrade all packages when it runs (not just security updates)
     - echo -e 'Unattended-Upgrade::Origins-Pattern {\n        "origin=*";\n};\n\nUnattended-Upgrade::Package-Blacklist {\n};' | /usr/bin/tee --append /target/etc/apt/apt.conf.d/50unattended-upgrades
     # Remove desktop update notifier application
-    - curtin in-target --target=/target -- apt-get --purge -y --quiet=2 update-notifier update-notifier-common
+    - curtin in-target --target=/target -- apt-get purge -y --quiet=2 update-notifier update-notifier-common
     # Clean up apt with an autoremove and clean
-    - curtin in-target --target=/target -- apt-get --purge -y --quiet=2 autoremove
+    - curtin in-target --target=/target -- apt-get purge -y --quiet=2 autoremove
     - curtin in-target --target=/target -- apt-get clean
     # Enable Flathub
     - curtin in-target --target=/target -- flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
     # Configure UFW on the target system with a basic default of only ingress SSH being allowed
-    - curtin in-target --target=/target -- /usr/sbin/ufw --force reset
+    - curtin in-target --target=/target -- ufw --force reset
     # We need to run the following commands inside chroot instead of curtin because they depend on
     # inserting the ip6_tables kernel module in order to successfully run and that module doesn't
     # seem to actually ship on the ISO inside the installer environment. So we chroot into our
