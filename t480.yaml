@@ -31,6 +31,7 @@ autoinstall:
     - flatpak                 # universe
     - podman                  # universe
     - ufw                     # main
+    - unattended-upgrades     # main
     - wireshark               # universe
 
   snaps:
@@ -39,6 +40,10 @@ autoinstall:
       classic: true
 
   late-commands:
+    # Configure unattended-upgrades to upgrade all packages when it runs (not just security updates)
+    - echo -e 'Unattended-Upgrade::Origins-Pattern {\n        "origin=*";\n};\n\nUnattended-Upgrade::Package-Blacklist {\n};' | /usr/bin/tee --append /target/etc/apt/apt.conf.d/50unattended-upgrades
+    # Remove desktop update notifier application
+    - curtin in-target --target=/target -- apt-get --purge -y --quiet=2 update-notifier update-notifier-common
     # Clean up apt with an autoremove and clean
     - curtin in-target --target=/target -- apt-get --purge -y --quiet=2 autoremove
     - curtin in-target --target=/target -- apt-get clean
