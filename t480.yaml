@@ -29,6 +29,7 @@ autoinstall:
   packages:
     - distrobox               # universe
     - flatpak                 # universe
+    - git                     # main
     - podman                  # universe
     - ufw                     # main
     - unattended-upgrades     # main
