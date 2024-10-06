@@ -21,6 +21,8 @@ autoinstall:
     username: user
     password: "$6$AEzzJzqYSLoOU..B$9eBMwzAStDHZaHlNPrjJ12zq2WkHVgpmTsGbuxEdQzCOKKTN1wXKzrBLjazOavFb6u19jWALrCyEqBW9rzTNA0"  # 'password'
 
+  # This ssh daemon config gets written to /etc/ssh/sshd_config.d/50-cloud-init.conf
+  # on the installed system
   ssh:
     install-server: true
     allow-pw: false
