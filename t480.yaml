@@ -12,7 +12,12 @@ autoinstall:
   storage:
     layout:
       name: zfs
-      password: password  # LUKS2 password, will need rotating post-install
+      # Ubuntu uses a ZFS keyfile to unlock the main pool.
+      # This keyfile is stored on a LUKS volume which is actually a ZFS ZVOL that's kept at `rpool/keystore`.
+      # Thus, to change the ZFS unlock password after install, we need to use:
+      #     sudo cryptsetup luksChangeKey /dev/zvol/rpool/keystore
+      # on the installed and booted system.
+      password: password  # LUKS2 password - will need rotating post-install
       match:
         path: /dev/nvme0n1
 
@@ -21,8 +26,7 @@ autoinstall:
     username: user
     password: "$6$AEzzJzqYSLoOU..B$9eBMwzAStDHZaHlNPrjJ12zq2WkHVgpmTsGbuxEdQzCOKKTN1wXKzrBLjazOavFb6u19jWALrCyEqBW9rzTNA0"  # 'password'
 
-  # This ssh daemon config gets written to /etc/ssh/sshd_config.d/50-cloud-init.conf
-  # on the installed system
+  # This ssh daemon config gets written to /etc/ssh/sshd_config.d/50-cloud-init.conf on the installed system
   ssh:
     install-server: true
     allow-pw: false
