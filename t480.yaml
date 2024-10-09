@@ -45,6 +45,7 @@ autoinstall:
     - name: bitwarden
     - name: code
       classic: true
+    - name: libreoffice
 
   late-commands:
     # Configure unattended-upgrades to upgrade all packages when it runs (not just security updates)
