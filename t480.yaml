@@ -43,8 +43,6 @@ autoinstall:
 
   snaps:
     - name: bitwarden
-    - name: code
-      classic: true
     - name: libreoffice
 
   late-commands:
